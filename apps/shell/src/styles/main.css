@@ -1,0 +1,4 @@
+:root { --gap: 12px; --pad: 16px; font-family: ui-sans-serif, system-ui; }
+body,html,#app { height: 100%; margin: 0; }
+header,nav,main { padding: var(--pad); }
+nav a { margin-right: var(--gap); }

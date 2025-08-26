@@ -1,0 +1,16 @@
+{
+  "name": "my-portal",
+  "private": true,
+  "packageManager": "pnpm@9",
+  "scripts": {
+    "dev": "concurrently -k -n shell,loan,ins \"pnpm -C apps/shell dev\" \"pnpm -C apps/loan-mfe dev\" \"pnpm -C apps/insurance-mfe dev\"",
+    "build": "pnpm -C apps/loan-mfe build && pnpm -C apps/insurance-mfe build && pnpm -C apps/shell build",
+    "lint": "eslint . --ext .ts,.vue",
+    "typecheck": "tsc -b"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "eslint": "^9.9.0",
+    "typescript": "^5.5.4"
+  }
+}

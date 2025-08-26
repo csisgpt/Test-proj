@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@portal/ui-kit": ["packages/ui-kit/src/index.ts"],
+      "@portal/shared-utils": ["packages/shared-utils/src/index.ts"],
+      "@portal/api-clients": ["packages/api-clients/src/index.ts"],
+      "@portal/config": ["packages/config/src/index.ts"]
+    },
+    "types": ["vite/client"]
+  }
+}
