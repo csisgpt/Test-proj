@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@company/ui": ["../../packages/ui/src"],
+      "@company/api": ["../../packages/api/src"],
+      "@company/shared": ["../../packages/shared/src"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "references": [
+    { "path": "../../packages/ui" },
+    { "path": "../../packages/api" },
+    { "path": "../../packages/shared" }
+  ]
+}
