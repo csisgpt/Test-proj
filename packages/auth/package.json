@@ -1,0 +1,12 @@
+{
+  "name": "@company/auth",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@company/api": "workspace:*",
+    "vue": "^3.4.15",
+    "pinia": "^2.1.7"
+  }
+}
