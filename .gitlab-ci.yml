@@ -1,0 +1,131 @@
+image: node:18-alpine
+
+stages:
+  - install
+  - quality
+  - build
+  - test
+  - deploy
+
+variables:
+  FF_USE_FASTZIP: "true"
+  ARTIFACT_COMPRESSION_LEVEL: "fast"
+  CACHE_COMPRESSION_LEVEL: "fast"
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  PNPM_HOME: "$CI_PROJECT_DIR/.pnpm-home"
+
+cache:
+  key:
+    files:
+      - pnpm-lock.yaml
+  paths:
+    - .npm/
+    - .pnpm-store/
+    - .pnpm-home/
+    - node_modules/
+
+before_script:
+  - apk add --no-cache libc6-compat
+  - corepack enable
+  - corepack prepare pnpm@latest --activate
+  - pnpm config set store-dir .pnpm-store
+
+install:
+  stage: install
+  script:
+    - pnpm install --frozen-lockfile
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - node_modules/
+      - apps/*/node_modules/
+      - packages/*/node_modules/
+
+lint:
+  stage: quality
+  needs: [install]
+  script:
+    - pnpm run lint
+  allow_failure: true
+
+type-check:
+  stage: quality
+  needs: [install]
+  script:
+    - pnpm run type-check
+  allow_failure: true
+
+build:
+  stage: build
+  needs: [install]
+  script:
+    - pnpm run build
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - apps/*/dist/
+  only:
+    - main
+    - develop
+
+build:changed:
+  stage: build
+  needs: [install]
+  script:
+    - pnpm run build:affected
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - apps/*/dist/
+  except:
+    - main
+    - develop
+
+test:unit:
+  stage: test
+  needs: [install]
+  script:
+    - pnpm run test:unit
+  coverage: '/Lines\s*:\s*(\d+\.\d+)%/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+
+deploy:staging:
+  stage: deploy
+  needs: [build]
+  script:
+    - echo "Deploying to staging environment"
+    - |
+      for app in apps/*/dist; do
+        if [ -d "$app" ]; then
+          app_name=$(basename $(dirname "$app"))
+          echo "Deploying $app_name to staging"
+        fi
+      done
+  environment:
+    name: staging
+    url: https://staging.company.com
+  only:
+    - develop
+
+deploy:production:
+  stage: deploy
+  needs: [build]
+  script:
+    - echo "Deploying to production environment"
+  environment:
+    name: production
+    url: https://company.com
+  only:
+    - main
+  when: manual
+
+security:scan:
+  stage: test
+  needs: [install]
+  script:
+    - npm audit --audit-level=moderate
+  allow_failure: true
