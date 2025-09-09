@@ -1,14 +1,14 @@
 <template>
   <div class="pharmacy-app">
-    <h1>Welcome to Pharmacy App</h1>
-    <CButton @click="count++">Count: {{ count }}</CButton>
+    <div class="debug">
+      <p>
+        <RouterLink to="/">Home</RouterLink> |
+        <RouterLink to="/orders">Orders</RouterLink>
+      </p>
+    </div>
+
+    <!-- اول بدون Suspense تست کن -->
+    <RouterView class="animate__animated animate__fadeIn animate__faster" />
   </div>
 </template>
-<script setup lang="ts">
-import { ref } from 'vue'
-import { CButton } from '@company/ui'
-const count = ref(0)
-</script>
-<style scoped>
-.pharmacy-app { padding: 2rem; text-align: center; }
-</style>
+<script setup lang="ts"></script>

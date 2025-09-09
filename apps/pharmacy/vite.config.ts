@@ -9,14 +9,15 @@ export default defineConfig({
       name: 'pharmacy',
       filename: 'remoteEntry.js',
       exposes: {
-        './routes': './src/remote/routes.ts'
+        './routes': './src/remote/routes.ts', // دقیقا همین کلید
       },
       shared: {
         vue: { singleton: true, strictVersion: false },
         'vue-router': { singleton: true, strictVersion: false },
-        pinia: { singleton: true, strictVersion: false }
-      }
-    })
+        pinia: { singleton: true, strictVersion: false },
+      },
+    }),
   ],
-  build: { target: 'esnext' }
+  server: { port: 5174, cors: true },
+  build: { target: 'esnext' },
 })
