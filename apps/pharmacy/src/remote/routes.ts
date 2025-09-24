@@ -5,10 +5,10 @@ import PharmacyHome from '../views/Home.vue'
 
 export const pharmacyChildRoutes: RouteRecordRaw[] = [
   // روت ایندکس: وقتی زیر /pharmacy mount شد، می‌شود: /pharmacy
-  { path: '', name: 'pharmacy-home', component: PharmacyHome, meta: { requiresAuth: true } },
+  { path: '', name: 'pharmacy-home', component: PharmacyHome, meta: { requiresAuth: false } },
 
   // نمونه روت فرزند: /pharmacy/orders
-  { path: 'orders', name: 'pharmacy-orders', component: () => import('../views/Orders.vue'), meta: { requiresAuth: true } },
+  { path: 'orders', name: 'pharmacy-orders', component: () => import('../views/Orders.vue'), meta: { requiresAuth: false } },
 ]
 
 // تابع رجیستر برای هاست: روت‌ها را زیر base (پیش‌فرض '/pharmacy') mount می‌کند

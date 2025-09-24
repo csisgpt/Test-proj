@@ -3,6 +3,6 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { installCompanyUI } from '@company/ui'
+import  {} from "@company/shared"
 import '@company/ui/style'
-
 createApp(App).use(createPinia()).use(router).use(installCompanyUI).mount('#app')

@@ -1,4 +1,9 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosError, InternalAxiosRequestConfig } from 'axios'
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosError,
+  InternalAxiosRequestConfig,
+} from 'axios'
 
 export interface ApiConfig {
   baseURL: string
@@ -25,8 +30,10 @@ export class ApiClient {
   private subscribers: Array<(token: string) => void> = []
 
   constructor(config: ApiConfig) {
+    const runtimeBase = (window as any).__APP_CONFIG?.apiBaseUrl
+
     this.instance = axios.create({
-      baseURL: config.baseURL || import.meta.env.VITE_API_BASE_URL,
+      baseURL: config.baseURL || runtimeBase || import.meta.env.VITE_API_BASE_URL,
       timeout: config.timeout || 30000,
       headers: {
         'Content-Type': 'application/json',
@@ -103,7 +110,7 @@ export class ApiClient {
 
       const newTokens: AuthTokens = response.data
       this.setTokens(newTokens)
-      this.subscribers.forEach(callback => callback(newTokens.accessToken))
+      this.subscribers.forEach((callback) => callback(newTokens.accessToken))
       this.subscribers = []
 
       return newTokens
@@ -119,19 +126,24 @@ export class ApiClient {
     window.location.href = '/login?expired=true'
   }
 
-  private handleNetworkError(error: AxiosError): void {
-    window.dispatchEvent(new CustomEvent('api:network-error', {
-      detail: { message: 'Network connection error. Please check your internet connection.' }
-    }))
+  private handleNetworkError(_error: AxiosError): void {
+    // ← error ↦ _error
+    window.dispatchEvent(
+      new CustomEvent('api:network-error', {
+        detail: { message: 'Network connection error. Please check your internet connection.' },
+      })
+    )
   }
 
   private handleApiError(error: AxiosError): void {
     const message = (error.response?.data as any)?.message || error.message
     const status = error.response?.status
 
-    window.dispatchEvent(new CustomEvent('api:error', {
-      detail: { message, status, endpoint: error.config?.url }
-    }))
+    window.dispatchEvent(
+      new CustomEvent('api:error', {
+        detail: { message, status, endpoint: error.config?.url },
+      })
+    )
   }
 
   private loadTokenFromStorage(): void {
@@ -140,7 +152,7 @@ export class ApiClient {
       try {
         this.token = JSON.parse(stored)
       } catch (e) {
-        console.error('Failed to parse stored tokens')
+        console.error('Failed to parse stored tokens', e)
       }
     }
   }
@@ -179,7 +191,11 @@ export class ApiClient {
     return this.instance.delete<any, T>(url, config)
   }
 
-  public async upload(url: string, file: File, onProgress?: (progress: number) => void): Promise<any> {
+  public async upload(
+    url: string,
+    file: File,
+    onProgress?: (progress: number) => void
+  ): Promise<any> {
     const formData = new FormData()
     formData.append('file', file)
 

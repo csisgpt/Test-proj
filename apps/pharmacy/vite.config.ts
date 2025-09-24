@@ -7,10 +7,8 @@ export default defineConfig({
     vue(),
     federation({
       name: 'pharmacy',
-      filename: 'remoteEntry.js',
-      exposes: {
-        './routes': './src/remote/routes.ts', // دقیقا همین کلید
-      },
+      filename: 'remoteEntry.js', // مسیر صریح
+      exposes: { './routes': './src/remote/routes.ts' },
       shared: {
         vue: { singleton: true, strictVersion: false },
         'vue-router': { singleton: true, strictVersion: false },

@@ -13,6 +13,7 @@ export { useModal } from './composables/useModal'
 export { useTheme } from './composables/useTheme'
 
 export type * from './types'
+import './style/index.css'    // ⬅️ این باعث میشه dist/style.css تولید بشه
 
 import type { App } from 'vue'
 import * as components from './components'
@@ -22,3 +23,5 @@ export function installCompanyUI(app: App) {
     app.component(name, component as any)
   })
 }
+
+export default { install: installCompanyUI }

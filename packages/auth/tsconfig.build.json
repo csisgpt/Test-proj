@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.lib.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@company/api": ["../api/dist/index.d.ts"]   // 👈 مستقیماً به d.ts
+    },
+
+    "types": ["vite/client"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue", "env.d.ts"]
+}

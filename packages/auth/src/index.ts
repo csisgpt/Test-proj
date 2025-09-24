@@ -46,11 +46,11 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const hasAnyPermission = (perms: string[]): boolean => {
-    return perms.some(p => hasPermission(p))
+    return perms.some((p) => hasPermission(p))
   }
 
   const hasAllPermissions = (perms: string[]): boolean => {
-    return perms.every(p => hasPermission(p))
+    return perms.every((p) => hasPermission(p))
   }
 
   async function login(credentials: LoginCredentials): Promise<void> {
@@ -58,7 +58,10 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      const response = await api.post<{ user: User; tokens: AuthTokens }>('/auth/login', credentials)
+      const response = await api.post<{ user: User; tokens: AuthTokens }>(
+        '/auth/login',
+        credentials
+      )
       user.value = response.user
       api.setTokens(response.tokens)
       localStorage.setItem('user', JSON.stringify(response.user))
@@ -136,7 +139,9 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      const response = await api.post<{ user: User; tokens: AuthTokens }>('/auth/sso/callback', { code })
+      const response = await api.post<{ user: User; tokens: AuthTokens }>('/auth/sso/callback', {
+        code,
+      })
       user.value = response.user
       api.setTokens(response.tokens)
       localStorage.setItem('user', JSON.stringify(response.user))
@@ -170,7 +175,7 @@ export const useAuthStore = defineStore('auth', () => {
 })
 
 export function createAuthGuard(router: any) {
-  router.beforeEach(async (to: any, from: any, next: any) => {
+  router.beforeEach(async (to: any, _from: any, next: any) => {
     const authStore = useAuthStore()
 
     if (!authStore.user && !to.meta.public) {

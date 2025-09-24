@@ -2,14 +2,16 @@
   "name": "@company/shared",
   "version": "1.0.0",
   "type": "module",
-  "main": "./src/index.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./composables": "./src/composables/index.ts",
-    "./utils": "./src/utils/index.ts",
-    "./constants": "./src/constants/index.ts"
+  "main": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
-    "vue": "^3.4.15"
+    "jalali-moment": "^3.3.11"
   }
 }

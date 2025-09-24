@@ -2,12 +2,21 @@
   "name": "@company/auth",
   "version": "1.0.0",
   "type": "module",
-  "main": "./src/index.ts",
-  "exports": "./src/index.ts",
+  "main": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "dependencies": {
     "@company/api": "workspace:*",
-    "vue": "^3.4.15",
-    "pinia": "^2.1.7",
-    "oidc-client-ts": "^2.3.0"
+    "oidc-client-ts": "^2.4.0"
+  },
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0",
+    "pinia": "^2.1.7"
   }
 }

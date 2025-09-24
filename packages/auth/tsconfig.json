@@ -13,6 +13,6 @@
     "skipLibCheck": true,
     "types": ["vite/client"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "env.d.ts"] ,
   "exclude": ["dist", "node_modules"]
 }

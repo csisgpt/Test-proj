@@ -2,16 +2,13 @@
   "name": "@company/api",
   "version": "1.0.0",
   "type": "module",
-  "main": "./src/index.ts",
-  "exports": "./src/index.ts",
+  "main": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
-    "type-check": "tsc --noEmit",
-    "lint": "eslint src --ext .ts"
-  },
-  "dependencies": {
-    "axios": "^1.6.5"
-  },
-  "devDependencies": {
-    "typescript": "^5.3.3"
+    "build": "tsc -p tsconfig.build.json"
   }
 }

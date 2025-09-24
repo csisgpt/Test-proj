@@ -1,23 +1,26 @@
 <template>
-  <div v-if="modelValue" class="c-modal">
+  <div v-if="modelValue" class="c-modal" role="dialog" aria-modal="true" :aria-label="title">
     <div class="c-modal-content">
       <header class="c-modal-header">
         <h3>{{ title }}</h3>
-        <button @click="$emit('update:modelValue', false)">&times;</button>
+        <button @click="emit('update:modelValue', false)" aria-label="Close">&times;</button>
       </header>
       <div class="c-modal-body"><slot /></div>
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
-const props = defineProps<{ modelValue: boolean; title?: string }>()
-defineEmits(['update:modelValue'])
+defineProps<{ modelValue: boolean; title?: string }>()
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+}>()
 </script>
 <style scoped>
 .c-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;

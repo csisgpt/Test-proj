@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-
+import { generateConsole } from '@company/shared'
 const data = ref([
   {
     id: 1,
@@ -23,6 +23,10 @@ const data = ref([
     quantity: 3,
   },
 ])
+
+const test = () => {
+  generateConsole('dasdsadasd')
+}
 </script>
 
 <template>
@@ -33,6 +37,10 @@ const data = ref([
       v-for="(item, i) in data"
     >
       {{ item.title }} - {{ item.quantity + 'عدد' }}
+    </div>
+
+    <div style="margin-top: 40px">
+      <CButton @click="test"> کلیک کن </CButton>
     </div>
   </div>
 </template>

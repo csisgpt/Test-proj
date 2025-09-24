@@ -10,7 +10,10 @@ export const validators = {
   nationalCode: (value: string): boolean => {
     if (!/^\d{10}$/.test(value)) return false
     const check = parseInt(value[9])
-    const sum = value.split('').slice(0, 9).reduce((acc, num, i) => acc + parseInt(num) * (10 - i), 0)
+    const sum = value
+      .split('')
+      .slice(0, 9)
+      .reduce((acc, num, i) => acc + parseInt(num) * (10 - i), 0)
     const remainder = sum % 11
     return (remainder < 2 && check === remainder) || (remainder >= 2 && check === 11 - remainder)
   },
@@ -20,14 +23,27 @@ export const validators = {
     if (typeof value === 'object') return Object.keys(value).length > 0
     return true
   },
-  minLength: (min: number) => (value: string): boolean => value.length >= min,
-  maxLength: (max: number) => (value: string): boolean => value.length <= max,
-  pattern: (pattern: RegExp) => (value: string): boolean => pattern.test(value)
+  minLength:
+    (min: number) =>
+    (value: string): boolean =>
+      value.length >= min,
+  maxLength:
+    (max: number) =>
+    (value: string): boolean =>
+      value.length <= max,
+  pattern:
+    (pattern: RegExp) =>
+    (value: string): boolean =>
+      pattern.test(value),
 }
 
 export const formatters = {
   currency: (value: number, currency = 'IRR'): string => {
-    return new Intl.NumberFormat('fa-IR', { style: 'currency', currency, minimumFractionDigits: 0 }).format(value)
+    return new Intl.NumberFormat('fa-IR', {
+      style: 'currency',
+      currency,
+      minimumFractionDigits: 0,
+    }).format(value)
   },
   number: (value: number): string => new Intl.NumberFormat('fa-IR').format(value),
   date: (value: Date | string, options?: Intl.DateTimeFormatOptions): string => {
@@ -38,10 +54,13 @@ export const formatters = {
     const cleaned = value.replace(/\D/g, '')
     const match = cleaned.match(/^(\d{4})(\d{3})(\d{4})$/)
     return match ? `${match[1]}-${match[2]}-${match[3]}` : value
-  }
+  },
 }
 
-export function debounce<T extends (...args: any[]) => any>(func: T, wait: number): (...args: Parameters<T>) => void {
+export function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout>
   return function (...args: Parameters<T>) {
     clearTimeout(timeout)
@@ -49,7 +68,10 @@ export function debounce<T extends (...args: any[]) => any>(func: T, wait: numbe
   }
 }
 
-export function throttle<T extends (...args: any[]) => any>(func: T, limit: number): (...args: Parameters<T>) => void {
+export function throttle<T extends (...args: any[]) => any>(
+  func: T,
+  limit: number
+): (...args: Parameters<T>) => void {
   let inThrottle = false
   return function (...args: Parameters<T>) {
     if (!inThrottle) {
@@ -66,4 +88,9 @@ export function deepClone<T>(obj: T): T {
 
 export function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).substr(2)
+}
+
+export function generateConsole(data: any): void {
+  console.log('here')
+  console.log(data)
 }

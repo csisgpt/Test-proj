@@ -1,0 +1,17 @@
+{
+  "env": "production",
+  "apiBaseUrl": "https://api.example.com",
+  "auth": {
+    "authority": "https://sso.example.com/realms/main",
+    "clientId": "portal-shell",
+    "redirectUri": "https://portal.example.com/sso/callback"
+  },
+  "mfes": {
+    "pharmacy": {
+      "remoteEntry": "https://pharmacy.example.com/assets/remoteEntry.js",
+      "basePath": "/pharmacy",
+      "requiresAuth": true,
+      "expectedRange": "^1.4.0"
+    }
+  }
+}

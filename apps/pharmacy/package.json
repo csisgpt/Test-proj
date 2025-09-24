@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "typecheck": "vue-tsc --noEmit",
+    "build": "vite build",
+    "build:watch": "vite build --watch",
+    "preview": "vite preview --port 5174 --strictPort"
   },
   "dependencies": {
     "@company/api": "workspace:*",
@@ -19,9 +21,9 @@
   "devDependencies": {
     "@originjs/vite-plugin-federation": "^1.4.1",
     "@vitejs/plugin-vue": "^5.0.3",
-    "typescript": "^5.3.3",
+    "typescript": "^5.9.2",
     "vite": "^5.0.11",
     "vite-tsconfig-paths": "^5.1.4",
-    "vue-tsc": "^1.8.27"
+    "vue-tsc": "^3.0.7"
   }
 }
