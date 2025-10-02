@@ -1,0 +1,13 @@
+{
+  "env": "development",
+  "apiBaseUrl": "http://localhost:4000/api",
+  "mfes": {
+    "pharmacy": {
+      "remoteEntry": "http://localhost:5174/mf-manifest.json",
+      "basePath": "/pharmacy",
+      "requiresAuth": true,
+      "expose": "./routes",
+      "preload": true
+    }
+  }
+}

@@ -1,6 +1,7 @@
 <template>
   <div class="main-layout">
     <header class="app-header" role="banner">
+      {{ userTest.profile ?? 'asdasdassa' }}
       <div class="header-container">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 2rem">
           <button
@@ -157,13 +158,14 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter, type Router } from 'vue-router'
 import { useAuthStore } from '@company/auth'
+import { useUserStore } from '@company/state'
 
 // اختیاری: آیکون‌ها را از کیت خودتان ایمپورت کنید
 const IconDashboard = undefined as any
 const IconReports = undefined as any
 const IconUsers = undefined as any
 const IconSettings = undefined as any
-
+const userTest = useUserStore()
 type SidebarItem = {
   path: string
   label: string

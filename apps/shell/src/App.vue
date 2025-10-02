@@ -6,7 +6,6 @@
 import MainLayout from './layouts/MainLayout.vue'
 import { onMounted, onUnmounted } from 'vue'
 import { useAuthStore } from '@company/auth'
-import { checkPharmacyRemote } from './remote-check'
 
 const authStore = useAuthStore()
 
@@ -16,9 +15,6 @@ onMounted(async () => {
   window.addEventListener('api:error', handleApiError)
 
   // فقط در توسعه برای اسموک‌تست ریموت
-  if (import.meta.env.DEV) {
-    checkPharmacyRemote().catch((err) => console.error('[shell] pharmacy check failed:', err))
-  }
 })
 
 onUnmounted(() => {

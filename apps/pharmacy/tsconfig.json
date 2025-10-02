@@ -3,14 +3,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@company/api": ["../../packages/api/src"],
-      "@company/shared": ["../../packages/shared/src"]
+      "@company/api": ["../../packages/api/dist"],
+      "@company/shared": ["../../packages/shared/dist"],
+      "@company/ui": ["../../packages/ui/dist"],
+      "@company/auth": ["../../packages/auth/dist"]   
+      // اگر @company/auth هم داری:
+      // "@company/auth": ["../../packages/auth/dist"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [
-    { "path": "../../packages/ui" },
-    { "path": "../../packages/api" },
-    { "path": "../../packages/shared" }
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

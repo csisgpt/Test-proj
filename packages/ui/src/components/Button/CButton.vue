@@ -7,6 +7,6 @@
   padding: 0.5rem 1rem;
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
-  background: red;
+  background: burlywood;
 }
 </style>

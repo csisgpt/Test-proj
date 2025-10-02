@@ -12,14 +12,16 @@
   },
   "dependencies": {
     "@company/api": "workspace:*",
+    "@company/auth": "workspace:*",
     "@company/shared": "workspace:*",
+    "@company/state": "workspace:*",
     "@company/ui": "workspace:*",
     "pinia": "^2.1.7",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "@originjs/vite-plugin-federation": "^1.4.1",
+    "@module-federation/vite": "^1.8.1",
     "@vitejs/plugin-vue": "^5.0.3",
     "typescript": "^5.9.2",
     "vite": "^5.0.11",

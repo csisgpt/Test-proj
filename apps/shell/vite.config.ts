@@ -1,36 +1,32 @@
 // apps/shell/vite.config.ts
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import federation from '@originjs/vite-plugin-federation'
+import { federation } from '@module-federation/vite'
 import { fileURLToPath, URL } from 'node:url'
 
-
-
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, __dirname, '')
-
+  // const env = loadEnv(mode, __dirname, '') // اگر لازم شد برای چیزهای دیگر
   return {
     plugins: [
       vue(),
       federation({
         name: 'shell',
-        remotes: {
-          pharmacy: {
-            // فقط URL — بدون name@
-            external: env.VITE_PHARMACY_REMOTE || 'http://localhost:5174/assets/remoteEntry.js',
-            format: 'esm',   // چون ریموتت هم با Vite ساخته میشه
-            from: 'vite',    // مهم: منبع ریموت Vite است، نه Webpack
-          },
-        },
+        // ⬇️ remotes را نذار تا فقط runtime-config کنترل کند
+        remotes: {},
         shared: {
-          vue: { singleton: true, strictVersion: true, version: '3.4.15' },
-          'vue-router': { singleton: true, strictVersion: true, version: '4.2.5' },
-          pinia: { singleton: true, strictVersion: true, version: '2.1.7' },
+          vue: { singleton: true },
+          'vue-router': { singleton: true },
+          pinia: { singleton: true },
+          '@company/ui': { singleton: true },
+          '@company/auth': { singleton: true },
+          '@company/api': { singleton: true },
+          '@company/shared': { singleton: false },
+          '@company/state': { singleton: true },
         },
       }),
     ],
     resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
     server: { port: 5173 },
-    build: { target: 'esnext' },
+    build: { target: 'chrome89' },
   }
 })

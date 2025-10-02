@@ -8,10 +8,11 @@
   },
   "mfes": {
     "pharmacy": {
-      "remoteEntry": "https://pharmacy.example.com/assets/remoteEntry.js",
+      "remoteEntry": "http://localhost:5174/remoteEntry.js",
       "basePath": "/pharmacy",
       "requiresAuth": true,
-      "expectedRange": "^1.4.0"
+      "expose": "./routes",
+      "preload": true
     }
   }
 }

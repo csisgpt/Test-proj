@@ -1,5 +1,5 @@
 {
-  "name": "@company/ui",
+  "name": "@company/state",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/index.js",
@@ -10,8 +10,10 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./style": "./dist/index.css",
-    "./style.css": "./dist/index.css",
+    "./pinia-bridge": {
+      "import": "./dist/pinia-bridge.js",
+      "types": "./dist/pinia-bridge.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -20,14 +22,13 @@
     "LICENSE",
     "package.json"
   ],
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "sideEffects": false,
   "scripts": {
-    "build": "vite build -c vite.lib.config.ts && tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "vue": "^3.4.0"
+    "vue": "^3.4.0",
+    "pinia": "^2.1.0"
   }
 }

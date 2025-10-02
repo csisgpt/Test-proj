@@ -15,5 +15,8 @@ export default defineConfig({
       external: ['vue'],
       output: { globals: { vue: 'Vue' } },
     },
+    cssCodeSplit: true,
+    outDir: 'dist',
+    emptyOutDir: true,
   },
 })
